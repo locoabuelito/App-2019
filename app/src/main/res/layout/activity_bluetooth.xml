@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".actividades.BluetoothActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg"
+        android:weightSum="12"
+        android:id="@+id/linear_text">
+        <RelativeLayout
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <TextView
+                android:id="@+id/txt_automatico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginTop="90dp"
+                android:text="MODO AUTOMÁTICO"
+                android:textColor="#FFF"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="220dp">
+
+            <TextView
+                android:id="@+id/txt_bluetooth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:text="Bluetooth del Teléfono móvil.: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/txt_bluetooth_name"
+                    android:layout_marginTop="15dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                    android:textStyle="bold"
+                    android:layout_marginRight="30dp"
+                    android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_text"
+        android:layout_marginTop="15dp"
+        android:id="@+id/linear_rpi">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_bluetooth_rpi"
+                android:layout_marginLeft="10dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textStyle="bold"
+                android:text="Bluetooth de la placa RPI.: "/>
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/txt_bluetooth_name_rpi"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textStyle="bold"
+                android:layout_marginRight="30dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="250dp"
+            android:id="@+id/linear_btn">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_bluetooth"
+                android:layout_centerInParent="true"
+                android:layout_marginHorizontal="100dp"
+                android:text="ACTIVAR BLUETOOTH"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:textColor="#FFF"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--
+    <ListView
+        android:layout_below="@id/linear_text"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_height="150dp"
+        android:id="@+id/lvNewDevices"/>
+
+    <Button
+        android:id="@+id/btn_bluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_text"
+        android:layout_marginTop="250dp"
+        android:layout_marginHorizontal="50dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Enable Discoverable"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:onClick="btnEnableDisable_Discoverable"/>
+
+    <Button
+        android:id="@+id/btn_discovers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_text"
+        android:layout_marginTop="310dp"
+        android:layout_marginHorizontal="50dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Discover"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:onClick="btnDiscover" />
+        -->
+
+
+
+</ScrollView>

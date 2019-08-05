@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:state_pressed="true"/>
+
+    <item android:background="@drawable/rounded_button"
+        android:backgroundTint="#FFF"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:state_pressed="false"/>
+</selector>

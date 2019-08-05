@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".actividades.BloqueoManual">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="12"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/bloqueo_manual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="90dp"
+            android:text="MODO MANUAL"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_puertas"
+            android:layout_marginTop="100dp"
+            android:layout_marginHorizontal="70dp"
+            android:text="BLOQUEAR SEGURO DE PUERTAS"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:layout_below="@+id/bloqueo_manual"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_corriente"
+            android:layout_below="@+id/btn_puertas"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="70dp"
+            android:text="BLOQUEAR SEGURO DE CORRIENTE"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:textColor="#FFF"
+            android:textStyle="bold"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_puertasd"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="70dp"
+            android:text="DESBLOQUEAR SEGURO DE PUERTAS"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:layout_below="@+id/bloqueo_manual"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_corriented"
+            android:layout_below="@+id/btn_puertas"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="70dp"
+            android:text="DESBLOQUEAR SEGURO DE CORRIENTE"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:textColor="#FFF"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</ScrollView>

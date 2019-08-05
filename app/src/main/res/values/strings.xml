@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Auto</string>
+
+    <style name="TextLabel" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <string name="title_activity_menu">PANTALLA DE MENÚ</string>
+    <string name="navigation_drawer_open">Abrir menú</string>
+    <string name="navigation_drawer_close">Cerrar menuú</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Configuraciónes</string>
+    <string name="deleted">Borrar</string>
+    <string name="undo">Deshacer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_menu_panel">PANTALLA DE MENÚ</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
