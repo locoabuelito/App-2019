@@ -30,8 +30,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".actividades.BloqueoGPS" /> <!-- <activity android:name=".actividades.ActivityOTP" /> -->
-        <activity android:name=".actividades.Historial" />
+        <!-- <activity android:name=".actividades.ActivityOTP" /> -->
+
         <activity android:name=".login.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,6 +44,8 @@
         <activity android:name=".menu.OpcionesBloqueo" />
         <activity android:name=".actividades.BluetoothActivity" />
         <activity android:name=".menu.Menu_v2" />
+        <activity android:name=".actividades.Historial" />
+        <activity android:name=".actividades.BloqueoGPS" />
         <activity
             android:name=".actividades.MapsActivity"
             android:label="@string/title_activity_maps" />
@@ -67,13 +69,7 @@
         <activity android:name=".actividades.CortaCorrienteActivity" />
         <activity android:name=".actividades.PuertaActivity" />
         <activity android:name=".menu.PantallaMenu" />
-        <activity android:name=".login.RestablecerActivity" />
-
-        <service
-            android:name=".utilidades.releCortaCorriente_Service"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="" />-->
+        <activity android:name=".login.RestablecerActivity" /> -->
     </application>
 
 </manifest>

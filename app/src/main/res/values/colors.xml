@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#2196F3</color>
     <color name="colorAccent">#FF1E7CAD</color>
     <color name="colorText">#0D5A85</color>
-    <color name="error">#F0E74347</color>
+    <color name="hintMain">#FFF</color>
     <color name="ok">#CD07CA0E</color>
     <color name="eliminar">#DA745132</color>
     <color name="gray_background">#FFF</color>

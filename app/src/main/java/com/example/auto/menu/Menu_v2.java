@@ -3,15 +3,21 @@ package com.example.auto.menu;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import com.example.auto.POJO.otpPojo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.Toast;
 
 import com.example.auto.R;
 import com.example.auto.actividades.Historial;
@@ -21,21 +27,28 @@ import com.example.auto.login.MainActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import static com.example.auto.utilidades.Utilidades.otpB;
 
 public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener, OtpAutomatico.OtpListener{
+    private static final String TAG = "MenuClass";
     private GridLayout gridLayout;
     private FloatingActionButton floatingActionButton;
     private  int MY_PERMISSIONS_REQUEST;
     private FusedLocationProviderClient fusedLocationClient;
+    final DatabaseReference dataRefModo = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/modo/codigo");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_v2);
 
-        gridLayout = (GridLayout) findViewById(R.id.grid_menu);
+        gridLayout = findViewById(R.id.grid_menu);
         setSingleevent(gridLayout);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         CerrarSesion();
@@ -45,7 +58,7 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
 
 
     private void CerrarSesion() {
-        floatingActionButton = (FloatingActionButton)findViewById(R.id.id_fab);
+        floatingActionButton = findViewById(R.id.id_fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,9 +69,9 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 FirebaseAuth.getInstance().signOut();
-                                finish();
                                 Intent i = new Intent(Menu_v2.this, MainActivity.class);
                                 startActivity(i);
+                                finish();
 
 
                             }
@@ -76,14 +89,15 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
 
     private void Opciones(){
         AlertDialog.Builder builder = new AlertDialog.Builder(Menu_v2.this);
-        builder.setTitle("Opciones de MODALIDAD DE BLOQUEO-DESBLOQUEO");
-        builder.setMessage("Eliga una opción para el BLOQUEO-DESBLOQUEO de su vehículo")
+        builder.setTitle(getResources().getString(R.string.opciones));
+        builder.setMessage(getResources().getString(R.string.mensaje_opciones))
                 .setPositiveButton("Manual", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Utilidades.validarAutomatico = false;
-                        /*Intent i = new Intent(Menu_v2.this, OpcionesBloqueo.class);
-                        startActivity(i);*/
+                        Toast.makeText(Menu_v2.this, "Aguarde un momento. Se le estará enviando un codigo de verificación.", Toast.LENGTH_LONG).show();
+                        final DatabaseReference dataRefModo = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/modo");
+                        dataRefModo.child("activado").setValue(false);
                         openDialogManual();
                     }
                 })
@@ -91,8 +105,9 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Utilidades.validarAutomatico = true;
-                        /*Intent i = new Intent(Menu_v2.this, OpcionesBloqueo.class);
-                        startActivity(i);*/
+                        Toast.makeText(Menu_v2.this, "Aguarde un momento. Se le estará enviando un codigo de verificación.", Toast.LENGTH_LONG).show();
+                        final DatabaseReference dataRefModo = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/modo");
+                        dataRefModo.child("activado").setValue(true);
                         openDialogAutomatico();
                     }
                 })
@@ -100,19 +115,41 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
     }
     private void openDialogManual() {
         OtpManual otpManual = new OtpManual();
-        otpManual.show(getSupportFragmentManager(), "Codigo de Verificación - MANUAL");
+        otpManual.show(getSupportFragmentManager(), getResources().getString(R.string.titulo_manual));
     }
-
     private void openDialogAutomatico() {
         OtpAutomatico otpAutomatico = new OtpAutomatico();
-        otpAutomatico.show(getSupportFragmentManager(), "Codigo de Verificación - AUTOMÁTICO");
+        otpAutomatico.show(getSupportFragmentManager(), getResources().getString(R.string.titulo_automatico));
     }
+
 
     @Override
-    public void applyTexts(String codigo) {
+    public void applyTexts(String code) {
+        Toast.makeText(Menu_v2.this, "Código ingresado ! " + code, Toast.LENGTH_LONG).show();
+        dataRefModo.child("manual").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    otpPojo otpManual = dataSnapshot.getValue(otpPojo.class);
+                    if (/*!code.isEmpty() && */code.equals(otpManual.getManual())) {
+                        Intent i = new Intent(Menu_v2.this, OpcionesBloqueo.class);
+                        startActivity(i);
+                        Log.d(TAG, "onDataChange: " + otpManual.getManual());
+                    } else {
+                        Toast.makeText(Menu_v2.this, "Código ingresado incorrectamente! " + code, Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "onDataChange: " + code);
+                    }
 
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
-
 
 
     private void setSingleevent(GridLayout gridLayout) {

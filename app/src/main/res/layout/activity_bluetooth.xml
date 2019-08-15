@@ -37,7 +37,7 @@
                 android:id="@+id/txt_bluetooth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="27dp"
                 android:layout_marginLeft="10dp"
                 android:text="Bluetooth del Teléfono móvil.: "
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:id="@+id/txt_bluetooth_name"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="27dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Button"
                     android:textStyle="bold"
                     android:layout_marginRight="30dp"
@@ -83,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="250dp"
+            android:orientation="vertical"
             android:id="@+id/linear_btn">
             <Button
                 android:layout_width="match_parent"
@@ -95,46 +96,22 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:textColor="#FFF"
                 android:textStyle="bold"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:id="@+id/btn_blue"
+                android:layout_below="@+id/btn_bluetooth"
+                android:layout_centerInParent="true"
+                android:layout_marginHorizontal="100dp"
+                android:text="DESACTIVAR BLUETOOTH"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </LinearLayout>
-
-    <!--
-    <ListView
-        android:layout_below="@id/linear_text"
-        android:layout_width="match_parent"
-        android:layout_marginTop="15dp"
-        android:layout_height="150dp"
-        android:id="@+id/lvNewDevices"/>
-
-    <Button
-        android:id="@+id/btn_bluetooth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_text"
-        android:layout_marginTop="250dp"
-        android:layout_marginHorizontal="50dp"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="@color/colorAccent"
-        android:text="Enable Discoverable"
-        android:textColor="#FFF"
-        android:textStyle="bold"
-        android:onClick="btnEnableDisable_Discoverable"/>
-
-    <Button
-        android:id="@+id/btn_discovers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_text"
-        android:layout_marginTop="310dp"
-        android:layout_marginHorizontal="50dp"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="@color/colorAccent"
-        android:text="Discover"
-        android:textColor="#FFF"
-        android:textStyle="bold"
-        android:onClick="btnDiscover" />
-        -->
-
-
 
 </ScrollView>

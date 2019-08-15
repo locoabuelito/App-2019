@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class OtpAutomatico extends AppCompatDialogFragment {
     private EditText codigo;
     private OtpListener listener;
+    private Button verificar;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -27,28 +29,27 @@ public class OtpAutomatico extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.activity_otp, null);
         codigo = view.findViewById(R.id.codigo);
         builder.setView(view)
-                .setTitle("Codigo de Verificación - AUTOMÁTICO")
-                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        VerificadorOtp();
-                    }
-                });
+                .setTitle("Codigo de Verificación - AUTOMÁTICO");
+        verificar = view.findViewById(R.id.btn_verificar);
+        Verificar();
         return builder.create();
     }
 
-    private void VerificadorOtp() {
-        String code = codigo.getText().toString().trim();
+    private void Verificar() {
+        verificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String code_otp = codigo.getText().toString().trim();
+                listener.applyTexts(code_otp);
+                VerificadorOtp(code_otp);
+            }
+        });
+    }
+
+    private void VerificadorOtp(String code) {
+
         if (code.equals("12345")){
             Toast.makeText(getActivity(),"Codigo correcto",Toast.LENGTH_LONG).show();
-            final DatabaseReference dataRefModo = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/modo");
-            dataRefModo.child("activado").setValue(true);
             Intent i = new Intent(getActivity(), OpcionesBloqueo.class);
             startActivity(i);
         }else {

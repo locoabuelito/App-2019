@@ -1,11 +1,23 @@
 package com.example.auto.utilidades;
 
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.example.auto.POJO.otpPojo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class Utilidades {
     public static int rotacion = 0;
     public static boolean validarPantalla = true;
     public static boolean validarAutomatico = true;
     public static boolean validarPress = true;
     public static boolean validarBoton = true;
+    public static boolean otpB = true;
+
 }
 /*
     private final BroadcastReceiver DiscoverableReceiver = new BroadcastReceiver() {

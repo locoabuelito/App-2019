@@ -64,12 +64,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RxJavaPlugins.setErrorHandler(throwable -> {});
-        email = (EditText)findViewById(R.id.email);
-        password = (EditText)findViewById(R.id.password);
-        registrar = (TextView) findViewById(R.id.nueva_cuenta);
-        Iniciar = (Button)findViewById(R.id.btn_iniciar_sesion);
+        getSupportActionBar().hide();
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        registrar = findViewById(R.id.nueva_cuenta);
+        Iniciar = findViewById(R.id.btn_iniciar_sesion);
         //restablecer = (TextView)findViewById(R.id.restablecer);
-        progressBar = (ProgressBar)findViewById(R.id.progreso_restablecer);
+        progressBar = findViewById(R.id.progreso_restablecer);
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         mAuth = FirebaseAuth.getInstance();
 
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            final FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             progressBar.setVisibility(View.GONE);
                         } else {
@@ -172,9 +173,10 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 Intent i = new Intent(MainActivity.this, Menu_v2.class);
                 startActivity(i);
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "Email no verificado!", Toast.LENGTH_LONG).show();
             }
-        }else {
-            Toast.makeText(getApplicationContext(), "Email no verificado!", Toast.LENGTH_LONG).show();
         }
     }
 
