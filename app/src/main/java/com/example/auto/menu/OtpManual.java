@@ -1,21 +1,17 @@
 package com.example.auto.menu;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.auto.R;
@@ -24,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class OtpManual extends AppCompatDialogFragment {
@@ -42,7 +39,7 @@ public class OtpManual extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Se rellena el cuadro
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View view = inflater.inflate(R.layout.activity_otp, null);
+        final View view = inflater.inflate(R.layout.activity_otp_manual, null);
 
         verificar = view.findViewById(R.id.btn_verificar);
 
@@ -61,38 +58,23 @@ public class OtpManual extends AppCompatDialogFragment {
             public void onClick(View v) {
                 String code_otp = codigo.getText().toString().trim();
                 listener.applyTexts(code_otp);
-                VerificadorOtp(code_otp);
+                //VerificadorOtp(code_otp);
+                dismiss();
             }
         });
     }
 
     private void VerificadorOtp(String code) {
 
-        if (code.equals("12345")){
-            Toast.makeText(getActivity(),"Codigo correcto",Toast.LENGTH_LONG).show();
-            Intent i = new Intent(getActivity(), OpcionesBloqueo.class);
-            startActivity(i);
-        }else {
-            Toast.makeText(getActivity(),"Codigo incorrecto",Toast.LENGTH_LONG).show();
-        }
-    }
-
-    /*
-    private void VerificadorOtp(String code) {
-
-        dataRefModo.child("manual").addValueEventListener(new ValueEventListener() {
+        dataRefModo.child("manual").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    otpPojo otpManual = dataSnapshot.getValue(otpPojo.class);
-                    String otp = dataSnapshot.child("manual").getValue().toString();
-                    if (!code.isEmpty() && code.equals(otpManual.getManual())){
-                        Log.d(TAG, "onDataChange: "+otp);
-                        Intent i = new Intent(getContext(), OpcionesBloqueo.class);
-                        startActivity(i);
-                    }else {
-                        Toast.makeText(getContext(), "Código ingresado incorrectamente!"+code, Toast.LENGTH_LONG).show();
-                    }
+                String codes = dataSnapshot.getValue().toString().trim();
+                if (code.equals(codes)) {
+                    Intent i = new Intent(getActivity(), OpcionesBloqueo.class);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(getActivity(), "Código incorrecto. Verifique nuevamente!", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -104,7 +86,7 @@ public class OtpManual extends AppCompatDialogFragment {
         });
 
 
-    }*/
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -116,9 +98,14 @@ public class OtpManual extends AppCompatDialogFragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
     public interface OtpListener{
 
-        void applyTexts(String codigo);
+        void applyTexts(String code);
     }
 
 }

@@ -17,7 +17,7 @@ public class Utilidades {
     public static boolean validarPress = true;
     public static boolean validarBoton = true;
     public static boolean otpB = true;
-
+    public static String code;
 }
 /*
     private final BroadcastReceiver DiscoverableReceiver = new BroadcastReceiver() {
@@ -26,26 +26,26 @@ public class Utilidades {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
 
-            if (action.equals(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED)) {
+            if (action.equals(BluetoothViewHolder.ACTION_SCAN_MODE_CHANGED)) {
 
-                int mode = intent.getIntExtra(BluetoothAdapter.EXTRA_SCAN_MODE, BluetoothAdapter.ERROR);
+                int mode = intent.getIntExtra(BluetoothViewHolder.EXTRA_SCAN_MODE, BluetoothViewHolder.ERROR);
 
                 switch (mode) {
                     //Device is in Discoverable Mode
-                    case BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE:
+                    case BluetoothViewHolder.SCAN_MODE_CONNECTABLE_DISCOVERABLE:
                         Log.d(TAG, "DiscoverableReceiver: Discoverability Enabled.");
                         break;
                     //Device not in discoverable mode
-                    case BluetoothAdapter.SCAN_MODE_CONNECTABLE:
+                    case BluetoothViewHolder.SCAN_MODE_CONNECTABLE:
                         Log.d(TAG, "DiscoverableReceiver: Discoverability Disabled. Able to receive connections.");
                         break;
-                    case BluetoothAdapter.SCAN_MODE_NONE:
+                    case BluetoothViewHolder.SCAN_MODE_NONE:
                         Log.d(TAG, "DiscoverableReceiver: Discoverability Disabled. Not able to receive connections.");
                         break;
-                    case BluetoothAdapter.STATE_CONNECTING:
+                    case BluetoothViewHolder.STATE_CONNECTING:
                         Log.d(TAG, "DiscoverableReceiver: Connecting....");
                         break;
-                    case BluetoothAdapter.STATE_CONNECTED:
+                    case BluetoothViewHolder.STATE_CONNECTED:
                         Log.d(TAG, "DiscoverableReceiver: Connected.");
                         break;
                 }

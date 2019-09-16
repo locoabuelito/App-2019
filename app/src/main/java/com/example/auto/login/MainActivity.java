@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.auto.Retrofit.Registro;
+import com.example.auto.Retrofit.Interface.RegistroAPI;
 import com.example.auto.Retrofit.RetrofitClient;
 import com.example.auto.menu.Menu_v2;
 import com.example.auto.R;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private String error_correo = "Correo invalido!";
     private BluetoothAdapter bluetoothAdapter;
 
-    Registro registro;
+    RegistroAPI registro;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Retrofit retrofit = RetrofitClient.getInstance();
-        registro = retrofit.create(Registro.class);
+        registro = retrofit.create(RegistroAPI.class);
         estado_conexion();/*
         restablecer.setOnClickListener(new View.OnClickListener() {
             @Override

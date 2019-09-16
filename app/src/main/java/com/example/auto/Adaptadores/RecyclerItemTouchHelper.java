@@ -1,4 +1,4 @@
-package com.example.auto.utilidades;
+package com.example.auto.Adaptadores;
 
 import android.graphics.Canvas;
 import androidx.annotation.NonNull;
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 
 import android.view.View;
 
+import com.example.auto.Adaptadores.AdapterEstadoSensores;
 
 
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {

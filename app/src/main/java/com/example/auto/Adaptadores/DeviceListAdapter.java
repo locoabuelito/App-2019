@@ -1,4 +1,4 @@
-package com.example.auto.utilidades;
+package com.example.auto.Adaptadores;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -30,15 +30,15 @@ public class DeviceListAdapter extends ArrayAdapter<BluetoothDevice> {
         BluetoothDevice device = mDevices.get(position);
 
         if (device != null) {
-            TextView deviceName = (TextView) convertView.findViewById(R.id.tvDeviceName);
-            TextView deviceAdress = (TextView) convertView.findViewById(R.id.tvDeviceAddress);
+            TextView deviceName = convertView.findViewById(R.id.tvDeviceName);
+            //TextView deviceAdress = (TextView) convertView.findViewById(R.id.tvDeviceAddress);
 
             if (deviceName != null) {
                 deviceName.setText(device.getName());
-            }
+            }/*
             if (deviceAdress != null) {
                 deviceAdress.setText(device.getAddress());
-            }
+            }*/
         }
 
         return convertView;

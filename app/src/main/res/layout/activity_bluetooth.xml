@@ -13,17 +13,19 @@
         android:background="@drawable/bg"
         android:weightSum="12"
         android:id="@+id/linear_text">
+
         <RelativeLayout
-            android:layout_weight="3"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
             <TextView
                 android:id="@+id/txt_automatico"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:layout_marginTop="90dp"
                 android:text="MODO AUTOMÁTICO"
+                android:textAlignment="center"
                 android:textColor="#FFF"
                 android:textSize="34sp"
                 android:textStyle="bold" />
@@ -31,7 +33,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="220dp">
+            android:layout_marginTop="275dp">
 
             <TextView
                 android:id="@+id/txt_bluetooth"
@@ -82,7 +84,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="250dp"
+            android:layout_marginTop="200dp"
             android:orientation="vertical"
             android:id="@+id/linear_btn">
             <Button
@@ -91,25 +93,45 @@
                 android:id="@+id/btn_bluetooth"
                 android:layout_centerInParent="true"
                 android:layout_marginHorizontal="100dp"
-                android:text="ACTIVAR BLUETOOTH"
+                android:text="ACTIVAR BLUETOOTH "
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:textColor="#FFF"
                 android:textStyle="bold"/>
+            <!-- -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:id="@+id/btn_buscar"
+                android:layout_below="@+id/btn_bluetooth"
+                android:layout_centerInParent="true"
+                android:layout_marginHorizontal="100dp"
+                android:text="ACTIVAR - CONECTAR ALARMA"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:textColor="#FFF"
+                android:textStyle="bold" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:id="@+id/btn_blue"
-                android:layout_below="@+id/btn_bluetooth"
+                android:layout_below="@+id/btn_buscar"
                 android:layout_centerInParent="true"
                 android:layout_marginHorizontal="100dp"
-                android:text="DESACTIVAR BLUETOOTH"
+                android:text="DESACTIVAR ALARMA"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:textColor="#FFF"
                 android:textStyle="bold" />
+
+            <ListView
+                android:layout_below="@id/btn_blue"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/lvNewDevices" />
 
         </LinearLayout>
     </LinearLayout>

@@ -14,10 +14,15 @@
     <string name="action_settings">Configuraciónes</string>
     <string name="deleted">Borrar</string>
     <string name="undo">Deshacer</string>
+    <!-- Menu_v2.java-->
     <string name="titulo_manual">Codigo de Verificación - MANUAL</string>
     <string name="titulo_automatico">Codigo de Verificación - AUTOMÁTICO</string>
     <string name="opciones">Opciones de MODALIDAD DE CONTROL</string>
     <string name="mensaje_opciones">Eliga una opción para la MODALIDAD DE CONTROL de su vehículo</string>
+    <!-- OpcionesBloqueo.java-->
+    <string name="titulo_opciones_bloqueo">Opciones de CONTROL</string>
+    <string name="mensaje_opciones_bloqueo_manual">La opcion elegida esta deshabilitado en la MODALIDAD DE CONTROL MANUAL.</string>
+    <string name="mensaje_opciones_bloqueo_automatico">La opcion elegida esta deshabilitado en la MODALIDAD DE CONTROL AUTOMÁTICO.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

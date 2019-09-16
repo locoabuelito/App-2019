@@ -25,7 +25,7 @@ public class OpcionesBloqueo extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opciones_bloqueo);
 
-        gridLayout = (GridLayout) findViewById(R.id.grid_menu);
+        gridLayout = findViewById(R.id.grid_menu);
         if (Utilidades.validarAutomatico == true){
             setSingleeventAutomatic(gridLayout);
         }else {
@@ -79,8 +79,8 @@ public class OpcionesBloqueo extends AppCompatActivity  {
 
     private void AlertaManual() {
         AlertDialog.Builder builder = new AlertDialog.Builder(OpcionesBloqueo.this);
-        builder.setTitle("Opciones de BLOQUEO-DESBLOQUEO");
-        builder.setMessage("La opción elegida esta deshabilitado en el MODO DE BLOQUEO-DESBLOQUEO AUTOMÁTICO.")
+        builder.setTitle(getString(R.string.titulo_opciones_bloqueo));
+        builder.setMessage(R.string.mensaje_opciones_bloqueo_automatico)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -92,8 +92,8 @@ public class OpcionesBloqueo extends AppCompatActivity  {
 
     private void AlertaAutomatico() {
         AlertDialog.Builder builder = new AlertDialog.Builder(OpcionesBloqueo.this);
-        builder.setTitle("Opciones de BLOQUEO-DESBLOQUEO");
-        builder.setMessage("La opcion elegida esta deshabilitado en el MODO DE BLOQUEO-DESBLOQUEO MANUAL.")
+        builder.setTitle(getResources().getString(R.string.titulo_opciones_bloqueo));
+        builder.setMessage(getString(R.string.mensaje_opciones_bloqueo_manual))
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

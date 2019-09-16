@@ -29,7 +29,7 @@ public class BluetoothPojo {
 /*
     public void btnDiscover(View view){
         Log.d(TAG, "btnDiscover: Buscando dispositivo a parear");
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothViewHolder bluetoothAdapter = BluetoothViewHolder.getDefaultAdapter();
         if (bluetoothAdapter.isDiscovering()){
             bluetoothAdapter.cancelDiscovery();
             Log.d(TAG, "btnDiscover: Cancelando busqueda");
@@ -66,8 +66,8 @@ public class BluetoothPojo {
     public void btnEnableDisable_Discoverable(View view) {
         Log.d(TAG, "btnEnableDisable_Discoverable: Making device discoverable for 30 seconds.");
 
-        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 30);
+        Intent discoverableIntent = new Intent(BluetoothViewHolder.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothViewHolder.EXTRA_DISCOVERABLE_DURATION, 30);
         startActivity(discoverableIntent);
 
         IntentFilter intentFilter = new IntentFilter(bluetoothAdapter.ACTION_SCAN_MODE_CHANGED);

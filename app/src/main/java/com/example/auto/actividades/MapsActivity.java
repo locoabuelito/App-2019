@@ -61,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Ubicacion Usuario
-        databaseReference.child("seccion_ubicacion").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("seccion_ubicacion_usuario").addValueEventListener(new ValueEventListener() {
             Circle circle;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -70,13 +70,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                     MapsPojo mp = dataSnapshot.getValue(MapsPojo.class);
-                    Double latitud = mp.getLatitud();
-                    Double longitud = mp.getLongitud();
+                    Double Latitud = mp.getLatitud();
+                    Double Longitud = mp.getLongitud();
                     MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.draggable(true).position(new LatLng(latitud,longitud)).title("MI UBICACIÓN");
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitud,longitud), 17f));
+                    markerOptions.draggable(true).position(new LatLng(Latitud, Longitud)).title("MI UBICACIÓN");
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Latitud, Longitud), 17f));
                     tmpRealTimeMarkers.add(mMap.addMarker(markerOptions));
-                    circle = drawCircle(new LatLng(latitud,longitud));
+                    //circle = drawCircle(new LatLng(Latitud,Longitud));
                 }
                 RealTimeMarkers.clear();
                 RealTimeMarkers.addAll(tmpRealTimeMarkers);
@@ -116,7 +116,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
     }
-
+    /*
     private Circle drawCircle(LatLng latLng){
         CircleOptions circleOptions = new CircleOptions()
                 .center(latLng)
@@ -125,5 +125,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .strokeColor(Color.BLUE)
                 .strokeWidth(3);
         return mMap.addCircle(circleOptions);
-    }
+    }*/
 }

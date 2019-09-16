@@ -22,17 +22,21 @@ import com.example.auto.utilidades.UbicacionService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class BloqueoGPS extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST = 0;
     private FusedLocationProviderClient fusedLocationClient;
     static BloqueoGPS instance;
     LocationRequest locationRequest;
-    final DatabaseReference dataRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario");
+    final DatabaseReference dataRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/seccion_gps");
+    final DatabaseReference data = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/seccion_gps/distancia_bloqueo");
     private SeekBar distancia;
-    private TextView distancia_bloqueo;
+    private TextView distancia_bloqueo, distancia_vehiculo_usuario;
     private Button enviar;
     private int d = 0;
     public static BloqueoGPS getInstance() {
@@ -46,9 +50,10 @@ public class BloqueoGPS extends AppCompatActivity {
         instance = this;
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         ObtenerPermisoUsuario();
-        distancia = (SeekBar)findViewById(R.id.seekBar);
-        distancia_bloqueo = (TextView)findViewById(R.id.txt_gps_bloqueo_distancia);
-        enviar = (Button)findViewById(R.id.btn_Enviar);
+        distancia = findViewById(R.id.seekBar);
+        distancia_bloqueo = findViewById(R.id.txt_gps_bloqueo_distancia);
+        distancia_vehiculo_usuario = findViewById(R.id.txt_gps_distancia);
+        enviar = findViewById(R.id.btn_Enviar);
 
         distancia.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -74,14 +79,49 @@ public class BloqueoGPS extends AppCompatActivity {
                 if (d == 0){
                     Toast.makeText(BloqueoGPS.this,"Distancia no configurada. Verifique nuevamente!",Toast.LENGTH_LONG).show();
                 }else {
-                    dataRef.child("seccion_distancias").child("bloqueo").setValue(d);
+                    data.setValue(d);
                     Toast.makeText(BloqueoGPS.this, "Configurando distancia para el bloqueo de encendido!", Toast.LENGTH_LONG).show();
                 }
             }
         });
+        Distancia_vehiculo_usuario();
 
 
     }
+
+    private void Distancia_vehiculo_usuario() {
+        dataRef.child("distancia_vehiculo_usuario/distancia_metros").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String da = dataSnapshot.getValue().toString();
+                distancia_vehiculo_usuario.setText(da + " METROS.");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void Distancia_bloqueo() {
+        dataRef.child("distancias/distancia_bloqueo").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String db = dataSnapshot.getValue().toString();
+                if (db != null) {
+                    distancia_bloqueo.setText(db + " metros.");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public boolean ObtenerPermisoUsuario() {
         buildLocationRequest();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);

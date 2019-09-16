@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.auto.R;
-import com.example.auto.Retrofit.Registro;
+import com.example.auto.Retrofit.Interface.RegistroAPI;
 import com.example.auto.Retrofit.RetrofitClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,7 +39,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 public class RegistrarActivity extends AppCompatActivity {
-    Registro registro;
+    RegistroAPI registro;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     final DatabaseReference dataRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/telefono/");
 
@@ -68,14 +68,14 @@ public class RegistrarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registrar);
 
         Retrofit retrofit = RetrofitClient.getInstance();
-        registro = retrofit.create(Registro.class);
+        registro = retrofit.create(RegistroAPI.class);
 
-        email_registrar = (EditText)findViewById(R.id.email_registrar);
-        password_registrar = (EditText)findViewById(R.id.password_registrar);
-        password_registrar_2 = (EditText)findViewById(R.id.password_registrar_2);
-        telf = (EditText)findViewById(R.id.txt_telefono);
-        progressBar = (ProgressBar)findViewById(R.id.progreso_restablecer);
-        Btn_registrar = (Button)findViewById(R.id.btn_registrar);
+        email_registrar = findViewById(R.id.email_registrar);
+        password_registrar = findViewById(R.id.password_registrar);
+        password_registrar_2 = findViewById(R.id.password_registrar_2);
+        telf = findViewById(R.id.txt_telefono);
+        progressBar = findViewById(R.id.progreso_restablecer);
+        Btn_registrar = findViewById(R.id.btn_registrar);
 
         mAuth = FirebaseAuth.getInstance();
         estado_conexion ();

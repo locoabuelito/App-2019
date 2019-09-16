@@ -3,16 +3,21 @@ package com.example.auto.actividades;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import android.util.Log;
 
+import com.example.auto.Adaptadores.BluetoothAdapter;
+import com.example.auto.POJO.BluetoothCheckActivacionPojo;
 import com.example.auto.POJO.SensoresPojo;
 import com.example.auto.R;
-import com.example.auto.utilidades.AdapterEstadoSensores;
-import com.example.auto.utilidades.RecyclerItemTouchHelper;
+import com.example.auto.Adaptadores.AdapterEstadoSensores;
+import com.example.auto.Retrofit.Interface.BluetoothAPI;
+import com.example.auto.Retrofit.RetrofitClientBluetooth;
+import com.example.auto.Adaptadores.RecyclerItemTouchHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +26,13 @@ import com.google.firebase.database.ValueEventListener;
 import static androidx.recyclerview.widget.ItemTouchHelper.*;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
 
 public class Historial extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
     private static final String TAG = "HistorialSensores";
@@ -29,39 +41,67 @@ public class Historial extends AppCompatActivity implements RecyclerItemTouchHel
     boolean isLoading = false, isMaxData = false;
     private String last_node="", last_key="";
     private ArrayList<SensoresPojo> SensoresPojoList = new ArrayList<>();
+    private ArrayList<BluetoothCheckActivacionPojo> bluetoothCheckActivacionPojos = new ArrayList<>();
+
     AdapterEstadoSensores adapterEstadoSensores;
+    BluetoothAdapter bluetoothAdapter;
+    BluetoothAPI bluetooth;
     private RecyclerView recyclerView;
 
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
 
-        recyclerView = (RecyclerView)findViewById(R.id.recycler);
+        recyclerView = findViewById(R.id.recycler);
 
         ActionBar actionBar = getSupportActionBar(); // or getActionBar();
         getSupportActionBar().setTitle("ESTADO DE ACTUADORES"); // set the top title
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-        adapterEstadoSensores = new AdapterEstadoSensores(SensoresPojoList);
-        recyclerView.setAdapter(adapterEstadoSensores);
+        // Firebase
+        //adapterEstadoSensores = new AdapterEstadoSensores(SensoresPojoList);
+        //recyclerView.setAdapter(adapterEstadoSensores);
+        // Mysql
+        bluetoothAdapter = new BluetoothAdapter(this, bluetoothCheckActivacionPojos);
+        recyclerView.setAdapter(bluetoothAdapter);
 
         final DatabaseReference dataRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/");
         dataRef.keepSynced(true);
 
-        ObtenerConfirmacion();
-
+        //ObtenerConfirmacion();
 
         ItemTouchHelper.SimpleCallback simpleCallback =
                 new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT|RIGHT, Historial.this);
 
         new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
 
+        // Inicializar API
+        Retrofit retrofit = RetrofitClientBluetooth.getInstance();
+        bluetooth = retrofit.create(BluetoothAPI.class);
+
+        // Rellenar recycler
+        fetchData();
+
+
     }
 
+    private void fetchData() {
+        compositeDisposable.add(bluetooth.getBluetooth()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ArrayList<BluetoothCheckActivacionPojo>>() {
+                    @Override
+                    public void accept(ArrayList<BluetoothCheckActivacionPojo> getBluetooths) throws Exception {
+                        BluetoothAdapter bluetoothAdapter = new BluetoothAdapter(Historial.this, getBluetooths);
+                        Log.d(TAG, "Mysql: " + getBluetooths);
+                        recyclerView.setAdapter(bluetoothAdapter);
+                    }
+                }));
+    }
 
     private void ObtenerConfirmacion() {
         final DatabaseReference dataRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/");
@@ -98,6 +138,12 @@ public class Historial extends AppCompatActivity implements RecyclerItemTouchHel
 
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        compositeDisposable.clear();
+        super.onStop();
     }
 
     @Override

@@ -33,9 +33,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.example.auto.utilidades.Utilidades.otpB;
+import static com.example.auto.utilidades.Utilidades.code;
 
-public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener, OtpAutomatico.OtpListener{
+public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener, OtpAutomatico.OtpListener {
     private static final String TAG = "MenuClass";
     private GridLayout gridLayout;
     private FloatingActionButton floatingActionButton;
@@ -55,7 +55,6 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
 
 
     }
-
 
     private void CerrarSesion() {
         floatingActionButton = findViewById(R.id.id_fab);
@@ -123,35 +122,6 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
     }
 
 
-    @Override
-    public void applyTexts(String code) {
-        Toast.makeText(Menu_v2.this, "Código ingresado ! " + code, Toast.LENGTH_LONG).show();
-        dataRefModo.child("manual").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    otpPojo otpManual = dataSnapshot.getValue(otpPojo.class);
-                    if (/*!code.isEmpty() && */code.equals(otpManual.getManual())) {
-                        Intent i = new Intent(Menu_v2.this, OpcionesBloqueo.class);
-                        startActivity(i);
-                        Log.d(TAG, "onDataChange: " + otpManual.getManual());
-                    } else {
-                        Toast.makeText(Menu_v2.this, "Código ingresado incorrectamente! " + code, Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "onDataChange: " + code);
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
     private void setSingleevent(GridLayout gridLayout) {
         for (int i=0; i<gridLayout.getChildCount(); i++){
             CardView cardView = (CardView)gridLayout.getChildAt(i);
@@ -172,5 +142,51 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
                 }
             });
         }
+    }
+
+
+    @Override
+    public void applyTexts(String code) {
+        dataRefModo.child("manual").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String codes = dataSnapshot.getValue().toString().trim();
+                if (code.equals(codes)) {
+                    Intent i = new Intent(Menu_v2.this, OpcionesBloqueo.class);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(Menu_v2.this, "Código incorrecto. Verifique nuevamente!", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void AapplyTexts(String code) {
+        dataRefModo.child("automatico").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String codes = dataSnapshot.getValue().toString().trim();
+                if (code.equals(codes)) {
+                    Intent i = new Intent(Menu_v2.this, OpcionesBloqueo.class);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(Menu_v2.this, "Código incorrecto. Verifique nuevamente!", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

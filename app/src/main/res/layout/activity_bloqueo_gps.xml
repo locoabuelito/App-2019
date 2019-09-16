@@ -49,7 +49,6 @@
                 android:inputType="number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textStyle="bold"
-                android:layout_marginRight="30dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -93,14 +92,15 @@
                 android:layout_marginBottom="5dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textStyle="bold"
-                android:text="Barra de distancia - DISTANCIA MÁXIMA 3000 METROS"/>
+                android:text="Barra de distancia - DISTANCIA MÁXIMA 1000 METROS" />
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
                 android:outlineSpotShadowColor="@color/colorPrimary"
-                android:max="3000"
-                android:progress="100"/>
+                android:max="1000"
+                android:progress="5" />
 
             <Button
                 android:layout_width="match_parent"

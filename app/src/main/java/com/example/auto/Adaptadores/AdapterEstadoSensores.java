@@ -1,4 +1,4 @@
-package com.example.auto.utilidades;
+package com.example.auto.Adaptadores;
 
 import android.graphics.Color;
 import androidx.annotation.NonNull;
@@ -143,26 +143,26 @@ public class AdapterEstadoSensores extends RecyclerView.Adapter<AdapterEstadoSen
         LinearLayout layoutABorrar;
         public EstadoHolder(@NonNull View itemView) {
             super(itemView);
-            recyclerView = (RecyclerView)itemView.findViewById(R.id.recycler);
-            cardview_1 = (CardView)itemView.findViewById(R.id.cardview_1);
-            cardview_2 = (CardView)itemView.findViewById(R.id.cardview_2);
-            layoutABorrar = (LinearLayout)itemView.findViewById(R.id.layoutABorrar);
+            recyclerView = itemView.findViewById(R.id.recycler);
+            cardview_1 = itemView.findViewById(R.id.cardview_1);
+            cardview_2 = itemView.findViewById(R.id.cardview_2);
+            layoutABorrar = itemView.findViewById(R.id.layoutABorrar);
 
             // CORRIENTE
-            corriente = (TextView)itemView.findViewById(R.id.corriente);
-            horac = (TextView)itemView.findViewById(R.id.horac);
-            fechac = (TextView)itemView.findViewById(R.id.fechac);
-            estado_corriente = (TextView)itemView.findViewById(R.id.estado_corriente);
-            fecha_corriente = (TextView)itemView.findViewById(R.id.fecha_corriente);
-            hora_corriente = (TextView)itemView.findViewById(R.id.hora_corriente);
+            corriente = itemView.findViewById(R.id.corriente);
+            horac = itemView.findViewById(R.id.horac);
+            fechac = itemView.findViewById(R.id.fechac);
+            estado_corriente = itemView.findViewById(R.id.estado_corriente);
+            fecha_corriente = itemView.findViewById(R.id.fecha_corriente);
+            hora_corriente = itemView.findViewById(R.id.hora_corriente);
 
             // PUERTAS
-            puertas = (TextView)itemView.findViewById(R.id.puertas);
-            fecha = (TextView)itemView.findViewById(R.id.fecha);
-            hora = (TextView)itemView.findViewById(R.id.hora);
-            estado_puertas = (TextView)itemView.findViewById(R.id.estado_puertas);
-            fecha_puertas = (TextView)itemView.findViewById(R.id.fecha_puertas);
-            hora_puertas = (TextView)itemView.findViewById(R.id.hora_puertas);
+            puertas = itemView.findViewById(R.id.puertas);
+            fecha = itemView.findViewById(R.id.fecha);
+            hora = itemView.findViewById(R.id.hora);
+            estado_puertas = itemView.findViewById(R.id.estado_puertas);
+            fecha_puertas = itemView.findViewById(R.id.fecha_puertas);
+            hora_puertas = itemView.findViewById(R.id.hora_puertas);
         }
     }
 }
