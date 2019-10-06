@@ -41,6 +41,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".login.RegistrarActivity" />
+        <activity android:name=".login.RestablecerActivity" />
         <activity android:name=".actividades.BloqueoManual" />
         <activity android:name=".menu.OpcionesBloqueo" />
         <activity android:name=".actividades.BluetoothActivity" />
@@ -70,7 +71,7 @@
         <activity android:name=".actividades.CortaCorrienteActivity" />
         <activity android:name=".actividades.PuertaActivity" />
         <activity android:name=".menu.PantallaMenu" />
-        <activity android:name=".login.RestablecerActivity" /> -->
+         -->
     </application>
 
 </manifest>

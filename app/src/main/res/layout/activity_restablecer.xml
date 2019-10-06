@@ -22,6 +22,8 @@
             android:inputType="textEmailAddress"
             android:textSize="15dp"
             android:hint="Email para restablecer contraseña!"
+            android:backgroundTint="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
             android:layout_marginHorizontal="50dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 

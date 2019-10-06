@@ -3,7 +3,9 @@ package com.example.auto.Retrofit.Interface;
 import com.example.auto.POJO.BluetoothCheckActivacionPojo;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -16,5 +18,5 @@ public interface BluetoothAPI {
     Observable<String> activar_bluetooth(@Field("nombre_bt_cel") String nombre_bt_cel);
 
     @GET("confirmacion_activacion_rele")
-    Observable<ArrayList<BluetoothCheckActivacionPojo>> getBluetooth();
+    Observable<List<BluetoothCheckActivacionPojo>> getBluetooth();
 }

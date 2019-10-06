@@ -46,33 +46,9 @@ public class OtpAutomatico extends AppCompatDialogFragment {
             public void onClick(View v) {
                 String code_otp = codigo.getText().toString().trim();
                 listener.AapplyTexts(code_otp);
-                //VerificadorOtp(code_otp);
                 dismiss();
             }
         });
-    }
-
-    private void VerificadorOtp(String code) {
-
-        dataRefModo.child("automatico").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String codes = dataSnapshot.getValue().toString().trim();
-                if (code.equals(codes)) {
-                    Intent i = new Intent(getActivity(), OpcionesBloqueo.class);
-                    startActivity(i);
-                } else {
-                    Toast.makeText(getActivity(), "Código incorrecto. Verifique nuevamente!", Toast.LENGTH_LONG).show();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
     @Override

@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int REQUEST_ENABLE_BT = 1; // Valor de la funcion que identifica a la actividad, para pasar a onActivityResult()
     private EditText email, password;
-    private TextView registrar, restablecer;
+    private TextView registrar;
     private ProgressBar progressBar;
-    private Button Iniciar, Bluetooth;
+    private Button Iniciar, Bluetooth, restablecer;
     private FirebaseAuth mAuth;
     private DatabaseReference mFirebaseDatabase;
     boolean cor = false, pas = false;
@@ -69,34 +69,32 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         registrar = findViewById(R.id.nueva_cuenta);
         Iniciar = findViewById(R.id.btn_iniciar_sesion);
-        //restablecer = (TextView)findViewById(R.id.restablecer);
+        restablecer = findViewById(R.id.btn_recuperar);
         progressBar = findViewById(R.id.progreso_restablecer);
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         mAuth = FirebaseAuth.getInstance();
 
         Retrofit retrofit = RetrofitClient.getInstance();
         registro = retrofit.create(RegistroAPI.class);
-        estado_conexion();/*
+        estado_conexion();
+
+
+    }
+
+    private void Restablecer() {
         restablecer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RestablecerActivity.class));
+                startActivity(new Intent(MainActivity.this, RestablecerActivity.class));
             }
-        });*/
-
-
+        });
     }
 
     private void IniciarConInternet() {
         Iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (internet()) {
-                    validar();
-                } else {
-                    estado_conexion();
-                }
+                validar();
             }
         });
     }
@@ -107,16 +105,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseUser user = mAuth.getCurrentUser();
                 progressBar.setVisibility(View.VISIBLE);
-                if (internet()){
+                //if (internet()){
                     Intent i = new Intent(MainActivity.this, RegistrarActivity.class);
                     startActivity(i);
                     finish();
                     progressBar.setVisibility(View.GONE);
-                }else{
+            }/*else{
                     Toast.makeText(MainActivity.this,"No se ha podido establecer la conexión a Internet. Verifique su red!",Toast.LENGTH_LONG).show();
                 }
 
-            }
+            }*/
         });
     }
 
@@ -277,9 +275,11 @@ public class MainActivity extends AppCompatActivity {
                 if (connected){
                     IniciarConInternet();
                     BotonRegistrarConInternet();
-                }else{
+                    Restablecer();
+                } else {/*
                     IniciarSinInternet();
-                    BotonRegistrarSinInternet();
+                    BotonRegistrarSinInternet();*/
+                    Toast.makeText(MainActivity.this, "Verifique su conectividad a Internet para autenticar. Utilice otro mecanismo de autenticación!", Toast.LENGTH_LONG).show();
                 }
             }
 

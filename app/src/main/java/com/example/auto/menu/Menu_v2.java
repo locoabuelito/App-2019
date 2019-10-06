@@ -41,7 +41,11 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
     private FloatingActionButton floatingActionButton;
     private  int MY_PERMISSIONS_REQUEST;
     private FusedLocationProviderClient fusedLocationClient;
-    final DatabaseReference dataRefModo = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/modo/codigo");
+    final DatabaseReference dataRefModoC = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/modo/codigo");
+    final DatabaseReference dataRefModo = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/modo");
+
+    int j = 0;
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,7 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
     }
 
     private void Opciones(){
+
         AlertDialog.Builder builder = new AlertDialog.Builder(Menu_v2.this);
         builder.setTitle(getResources().getString(R.string.opciones));
         builder.setMessage(getResources().getString(R.string.mensaje_opciones))
@@ -95,7 +100,6 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
                     public void onClick(DialogInterface dialog, int which) {
                         Utilidades.validarAutomatico = false;
                         Toast.makeText(Menu_v2.this, "Aguarde un momento. Se le estará enviando un codigo de verificación.", Toast.LENGTH_LONG).show();
-                        final DatabaseReference dataRefModo = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/modo");
                         dataRefModo.child("activado").setValue(false);
                         openDialogManual();
                     }
@@ -105,7 +109,6 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
                     public void onClick(DialogInterface dialog, int which) {
                         Utilidades.validarAutomatico = true;
                         Toast.makeText(Menu_v2.this, "Aguarde un momento. Se le estará enviando un codigo de verificación.", Toast.LENGTH_LONG).show();
-                        final DatabaseReference dataRefModo = FirebaseDatabase.getInstance().getReferenceFromUrl("https://app-2019-89860.firebaseio.com/usuario/modo");
                         dataRefModo.child("activado").setValue(true);
                         openDialogAutomatico();
                     }
@@ -147,11 +150,12 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
 
     @Override
     public void applyTexts(String code) {
-        dataRefModo.child("manual").addListenerForSingleValueEvent(new ValueEventListener() {
+        dataRefModoC.child("manual").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String codes = dataSnapshot.getValue().toString().trim();
                 if (code.equals(codes)) {
+                    dataRefModoC.child("codigo_correcto").setValue(true);
                     Intent i = new Intent(Menu_v2.this, OpcionesBloqueo.class);
                     startActivity(i);
                 } else {
@@ -170,11 +174,12 @@ public class Menu_v2 extends AppCompatActivity implements OtpManual.OtpListener,
 
     @Override
     public void AapplyTexts(String code) {
-        dataRefModo.child("automatico").addListenerForSingleValueEvent(new ValueEventListener() {
+        dataRefModoC.child("automatico").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String codes = dataSnapshot.getValue().toString().trim();
                 if (code.equals(codes)) {
+                    dataRefModoC.child("codigo_correcto").setValue(true);
                     Intent i = new Intent(Menu_v2.this, OpcionesBloqueo.class);
                     startActivity(i);
                 } else {

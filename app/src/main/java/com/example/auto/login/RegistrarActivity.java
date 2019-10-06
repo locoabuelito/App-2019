@@ -129,11 +129,13 @@ public class RegistrarActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 if (task.isSuccessful()){
                     final FirebaseUser user = mAuth.getCurrentUser();
+                    DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference();
                     user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(getApplicationContext(),"Se ha enviado un email de verificación a su cuenta para tener acceso a la aplicación!",Toast.LENGTH_LONG).show();
+                                firebaseDatabase.push().child(user.getProviderId()).setValue(user.getEmail());
                                 progressBar.setVisibility(View.GONE);
                                 startActivity(new Intent(RegistrarActivity.this, MainActivity.class));
                                 finish();

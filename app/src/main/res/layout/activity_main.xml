@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
     android:orientation="vertical"
     tools:context=".login.MainActivity">
 
@@ -15,15 +14,6 @@
         android:layout_marginTop="18dp"
         android:layout_marginHorizontal="70dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:civ_circle_background_color="@color/hintMain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="30dp"
-            android:id="@+id/logo"
-            app:civ_border_color="@color/hintMain"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:src="@drawable/logo" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -31,8 +21,7 @@
         android:layout_height="wrap_content"
         app:errorEnabled="true"
         app:hintTextAppearance="@style/TextLabel"
-        android:textColorHint="@color/hintMain"
-        android:textColor="@color/hintMain"
+        android:textColorHint="@color/colorAccent"
         android:gravity="center_vertical"
         android:layout_marginTop="240dp"
         android:id="@+id/txt_1">
@@ -43,9 +32,8 @@
             android:id="@+id/email"
             android:inputType="textEmailAddress"
             android:textSize="15dp"
-            android:backgroundTint="@color/hintMain"
-            android:textColorHint="@color/hintMain"
-            android:textColor="@color/hintMain"
+            android:backgroundTint="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
             android:hint="Ingrese su correo electrónico!"
             android:layout_marginHorizontal="50dp"/>
 
@@ -59,10 +47,9 @@
         app:errorEnabled="true"
         android:id="@+id/txt_2"
         android:layout_below="@+id/txt_1"
-        android:textColorHint="@color/hintMain"
-        android:textColor="@color/hintMain"
+        android:textColorHint="@color/colorAccent"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/hintMain">
+        app:passwordToggleTint="@color/colorAccent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -71,9 +58,8 @@
             android:inputType="textPassword"
             android:textSize="15dp"
             android:hint="Ingrese su contraseña!"
-            android:textColorHint="@color/hintMain"
-            android:textColor="@color/hintMain"
-            android:backgroundTint="@color/hintMain"
+            android:textColorHint="@color/colorAccent"
+            android:backgroundTint="@color/colorAccent"
             android:layout_marginHorizontal="50dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,7 +71,7 @@
       android:textSize="15dp"
       android:layout_marginTop="20dp"
       android:layout_marginHorizontal="150dp"
-      android:textColor="@color/hintMain"
+      android:textColor="@color/colorAccent"
       android:textStyle="bold"
       android:textAlignment="center"
       android:textAppearance="@style/TextAppearance.AppCompat.Button"
@@ -98,11 +84,24 @@
         android:layout_below="@+id/nueva_cuenta"
         android:layout_marginTop="30dp"
         android:layout_marginHorizontal="120dp"
-        android:backgroundTint="@color/hintMain"
+        android:backgroundTint="@color/colorAccent"
         android:background="@drawable/rounded_button"
         android:text="Iniciar Sesión"
-        android:textColor="@color/colorText"
+        android:textColor="@color/hintMain"
         android:textStyle="bold"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_recuperar"
+        android:layout_below="@+id/btn_iniciar_sesion"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="120dp"
+        android:backgroundTint="@color/colorAccent"
+        android:background="@drawable/rounded_button"
+        android:text="Recuperar contraseña"
+        android:textColor="@color/hintMain"
+        android:textStyle="bold" />
 <!--
     <TextView
         android:layout_width="match_parent"
@@ -121,7 +120,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/progreso_restablecer"
         android:layout_below="@id/btn_iniciar_sesion"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:visibility="gone"/>
 
 

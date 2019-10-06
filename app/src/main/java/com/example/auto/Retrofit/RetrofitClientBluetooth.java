@@ -10,9 +10,9 @@ public class RetrofitClientBluetooth {
     public static Retrofit getInstance() {
         if (ourInstance == null) {
             ourInstance = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.29:3000/")
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl("http://192.168.43.44:3000/")
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
         return ourInstance;
